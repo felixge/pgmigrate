@@ -9,6 +9,9 @@ before_script:
 env:
   - PG_DSN="postgres://localhost/travis_ci_test?sslmode=disable"
 
+addons:
+  postgresql: "9.6"
+
 go:
   - 1.6
   - 1.7
