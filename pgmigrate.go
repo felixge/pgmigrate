@@ -107,16 +107,6 @@ func (m Migrations) Valid() error {
 	return nil
 }
 
-// IDs returns a slice with all migration IDs in m. This is useful for logging
-// which migrations have been executed.
-func (m Migrations) IDs() []int {
-	var ids []int
-	for _, mm := range m {
-		ids = append(ids, mm.ID)
-	}
-	return ids
-}
-
 // DefaultConfig should be used by most users.
 var DefaultConfig = Config{
 	Schema: "migrations",
