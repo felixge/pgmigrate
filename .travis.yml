@@ -1,3 +1,5 @@
+dist: trusty
+sudo: false
 language: go
 
 services:
@@ -10,7 +12,7 @@ env:
   - PG_DSN="postgres://localhost/travis_ci_test?sslmode=disable"
 
 addons:
-  postgresql: "9.5"
+  postgresql: "9.6"
 
 go:
   - 1.6
