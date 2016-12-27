@@ -105,7 +105,7 @@ func TestMigrations_valid(t *testing.T) {
 }
 
 func TestConfig_Migrate(t *testing.T) {
-	db, err := sql.Open("postgres", "postgres://localhost/pgmigrate?sslmode=disable")
+	db, err := sql.Open("postgres", os.Getenv("PG_DSN"))
 	if err != nil {
 		t.Fatal(err)
 	}

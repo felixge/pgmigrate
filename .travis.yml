@@ -1,0 +1,14 @@
+language: go
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+
+env:
+  - PG_DSN="postgres://localhost/travis_ci_test?sslmode=disable"
+
+go:
+  - 1.6
+  - 1.7
