@@ -5,6 +5,14 @@
 
 pgmigrate implements a minimalistic migration library for postgres.
 
+## Example Usage
+
+```go
+db, _ := sql.Open("postgres", "postgres://localhost/mydb")
+ms, _ := pgmigrate.LoadMigrations(http.Dir("path/to/migrations"))
+pgmigrate.DefaultConfig.Migrate(db, ms)
+```
+
 ## Why this package exists
 
 There are a number of decent database migration libraries available for Go,
