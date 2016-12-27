@@ -154,6 +154,9 @@ CREATE TABLE IF NOT EXISTS ` + c.table() + ` (
 );
 `
 	_, err := tx.Exec(sql)
+	if err != nil {
+		fmt.Printf("%#v\n", err)
+	}
 	return err
 }
 
