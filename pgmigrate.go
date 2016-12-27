@@ -223,7 +223,6 @@ func (c *Config) applyMigrations(tx *sql.Tx, ms Migrations) (Migrations, error) 
 
 // quoteIdentifier quotes name to be used as an identifier in a postgres SQL
 // query. The implementation is copied from lib/pq.
-// @TODO(fg) add lib/pq license.
 func quoteIdentifier(name string) string {
 	end := strings.IndexRune(name, 0)
 	if end > -1 {
