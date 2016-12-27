@@ -53,6 +53,30 @@ func TestMigrations_sorting(t *testing.T) {
 	}
 }
 
+func TestMigrations_IDs(t *testing.T) {
+	t.Run("non-empty migrations slice", func(t *testing.T) {
+		var (
+			m    = Migrations{{ID: 1}, {ID: 2}, {ID: 3}}
+			got  = m.IDs()
+			want = []int{1, 2, 3}
+		)
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("got=%v want=%v", got, want)
+		}
+	})
+
+	t.Run("empty migrations slice", func(t *testing.T) {
+		var (
+			m    Migrations
+			got  = m.IDs()
+			want []int
+		)
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("got=%v want=%v", got, want)
+		}
+	})
+}
+
 func TestMigrations_valid(t *testing.T) {
 	tests := []struct {
 		Migrations Migrations
