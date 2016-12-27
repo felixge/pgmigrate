@@ -1,3 +1,5 @@
+// Package pgmigrate implements a minimalistic migration library for postgres.
+// See README for more information.
 package pgmigrate
 
 import (
@@ -120,7 +122,7 @@ type Config struct {
 	Table string
 }
 
-// Executes validates ms, and on success applies any ms that has not already
+// Migrate validates ms, and on success applies any ms that has not already
 // been executed. The return value is either an error, or a list of all
 // migrations that were applied.
 func (c *Config) Migrate(db *sql.DB, ms Migrations) (Migrations, error) {
