@@ -10,7 +10,7 @@ env:
   - PG_DSN="postgres://localhost/travis_ci_test?sslmode=disable"
 
 addons:
-  postgresql: "9.6"
+  postgresql: "9.5"
 
 go:
   - 1.6
