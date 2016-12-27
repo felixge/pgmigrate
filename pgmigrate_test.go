@@ -264,39 +264,38 @@ func TestConfig_Migrate(t *testing.T) {
 	)
 
 	for _, test := range tests {
-		var (
-			dropSQL = "DROP SCHEMA IF EXISTS " + strings.Join(schemas, ", ") + " CASCADE"
-		)
-		if _, err := db.Exec(dropSQL); err != nil {
-			t.Fatalf("%s: %s", test.Name, err)
-		}
-		for _, subTest := range test.SubTests {
-			ms, err := c.Migrate(db, subTest.Migrations)
-			if err := checkErr(err, subTest.WantErr); err != nil {
+		t.Run(test.Name, func(t *testing.T) {
+			dropSQL := "DROP SCHEMA IF EXISTS " + strings.Join(schemas, ", ") + " CASCADE"
+			if _, err := db.Exec(dropSQL); err != nil {
 				t.Fatalf("%s: %s", test.Name, err)
 			}
-			if subTest.WantQuery != "" {
-				var gotQuery bool
-				if err := db.QueryRow(subTest.WantQuery).Scan(&gotQuery); err != nil {
-					t.Fatalf("%s: %s", test.Name, err)
-				} else if !gotQuery {
-					t.Errorf("%s: got=%t want=true", test.Name, gotQuery)
+			for _, subTest := range test.SubTests {
+				ms, err := c.Migrate(db, subTest.Migrations)
+				if err := checkErr(err, subTest.WantErr); err != nil {
+					t.Fatal(err)
 				}
-			}
-			if got, want := len(subTest.WantMigrations), len(ms); got != want {
-				t.Errorf("%s: unexpected return migration count: got=%d want=%d", test.Name, got, want)
-			} else {
+				if subTest.WantQuery != "" {
+					var gotQuery bool
+					if err := db.QueryRow(subTest.WantQuery).Scan(&gotQuery); err != nil {
+						t.Fatal(err)
+					} else if !gotQuery {
+						t.Fatalf("got=%t want=true", gotQuery)
+					}
+				}
+				if got, want := len(subTest.WantMigrations), len(ms); got != want {
+					t.Fatalf("unexpected return migration count: got=%d want=%d", got, want)
+				}
 				for i, j := range subTest.WantMigrations {
 					if i >= len(ms) {
-						t.Errorf("%s: missing return miration: %d", test.Name, i)
+						t.Fatalf("missing return miration: %d", i)
 					} else if j >= len(subTest.Migrations) {
-						t.Errorf("%s: invalid return migration reference: %d", test.Name, j)
+						t.Fatalf("invalid return migration reference: %d", j)
 					} else if ms[i] != subTest.Migrations[j] {
-						t.Errorf("unexpected migration")
+						t.Fatalf("unexpected migration")
 					}
 				}
 			}
-		}
+		})
 	}
 }
 
