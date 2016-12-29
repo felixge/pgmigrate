@@ -25,7 +25,7 @@ Specifically pgmigrate is different because:
 * **Executes all migrations in a single transaction:** This avoids problems
   with partially applied migrations.
 * **Verifies previously executed migrations have not been modified:** This
-  reduces the change of different environments ending up with different
+  reduces the chance of different environments ending up with different
   schemas.
 * **Does not support down migrations:** This might be controversial, but I
   don't find them very useful. If a database change needs to be rolled back,
