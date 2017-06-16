@@ -54,6 +54,7 @@ func readFile(fs http.FileSystem, name string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer file.Close()
 	return ioutil.ReadAll(file)
 }
 
