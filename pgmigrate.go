@@ -35,7 +35,7 @@ func LoadMigrations(dirFS http.FileSystem) (Migrations, error) {
 		match := nameRegexp.FindStringSubmatch(m.Description)
 		if len(match) != 2 {
 			continue
-		} else if _, err := fmt.Sscan(match[1], &m.ID); err != nil {
+		} else if _, err := fmt.Sscanf(match[1], "%d", &m.ID); err != nil {
 			return nil, fmt.Errorf("bad id: %s: %s", m.Description, err)
 		} else if data, err := readFile(dirFS, m.Description); err != nil {
 			return nil, fmt.Errorf("could not read migration: %s: %s", m.Description, err)
