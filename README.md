@@ -1,3 +1,7 @@
+# DEPRECATED - DOT NOT USE
+
+I'm using https://flywaydb.org/ now. It does everything I'd ever want out of a migration tool, except that it's written in Java. Maybe one day I'll port it to Go. But probably not. There is more important stuff to worry about :)
+
 # pgmigrate
 
 [![GoDoc](https://godoc.org/github.com/felixge/pgmigrate?status.svg)](https://godoc.org/github.com/felixge/pgmigrate)
